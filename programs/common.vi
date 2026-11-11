@@ -1,4 +1,18 @@
 // a few randomly chosen interactions per element
 pub fn f(i: N32) -> N32 {
-  (i * i + 7) % 1000
+    (i * i + 7) % 1000
+}
+
+// reads input from stdin, falls back to default
+pub fn read_n(&io: &IO, default: N32) -> N32 {
+    io.println("Enter n: ");
+    match io.read_line() {
+        Some(line) {
+        match N32::parse(line) {
+            Some(n) { n }
+            None() { default }
+        }
+        }
+        None() { default }
+    }
 }
