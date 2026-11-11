@@ -1,0 +1,48 @@
+// longest common subsequence
+pub fn lcs[T*; Eq[T]](a: List[T], b: List[T]) -> N32 {
+  let row = [];
+  for a_elem in a {
+    let prev_row_entry = 0;
+    let prev_new_entry = 0;
+    let new_row = [];
+    for b_elem in b {
+      let row_entry = row.pop_front().or_use(0);
+      let new_entry = if a_elem == b_elem {
+        prev_row_entry + 1
+      } else {
+        row_entry.max(prev_new_entry)
+      };
+      prev_row_entry = row_entry;
+      prev_new_entry = new_entry;
+      new_row.push_back(new_entry);
+    }
+    row = new_row;
+  }
+
+  row.get(b.len() - 1).or_use(0)
+}
+
+// linear congruential generator
+// N32 wraps at 2^32 which gives this modulus for free
+fn next_rand(&state: &N32) -> N32 {
+  state = state * 1664525 + 1013904223;
+  (state >> 16) % 4
+}
+
+fn random_list(&state: &N32, len: N32) -> List[N32] {
+  let list = [];
+  let i = 0;
+  while i < len {
+    list.push_back(next_rand(&state));
+    i = i + 1;
+  }
+  list
+}
+
+pub fn main(&io: &IO) {
+  let state = 100;  // fixed seed so runs are reproducible
+  let a = random_list(&state, 200);
+  let b = random_list(&state, 200);
+  let result = lcs(a, b);
+  io.println("LCS length: {result}");
+}
