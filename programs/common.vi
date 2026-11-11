@@ -1,0 +1,4 @@
+// a few randomly chosen interactions per element
+pub fn f(i: N32) -> N32 {
+  (i * i + 7) % 1000
+}

@@ -1,0 +1,17 @@
+use #common::f;
+
+// divide and conquer array summation
+// recursively split list to add its halves
+fn sum_dc(lo: N32, hi: N32) -> N32 {
+  if hi - lo <= 1 {
+    if hi > lo { f(lo) } else { 0 }
+  } else {
+    let mid = lo + (hi - lo) / 2;
+    sum_dc(lo, mid) + sum_dc(mid, hi)
+  }
+}
+
+pub fn main(&io: &IO) {
+  let result = sum_dc(0, 1024);
+  io.println("result: {result}");
+}

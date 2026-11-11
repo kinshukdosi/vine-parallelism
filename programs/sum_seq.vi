@@ -1,0 +1,17 @@
+use #common::f;
+
+// sequential array summation
+fn sum_seq(n: N32) -> N32 {
+  let acc = 0;
+  let i = 0;
+  while i < n {
+    acc = acc + f(i);
+    i = i + 1;
+  }
+  acc
+}
+
+pub fn main(&io: &IO) {
+  let result = sum_seq(1024);
+  io.println("result: {result}");
+}
